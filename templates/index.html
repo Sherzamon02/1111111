@@ -1,0 +1,236 @@
+
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Put your site title here -->
+  <title>
+Muhiddinov Sherzamon
+  </title>
+
+  <meta name="description" content="Add small description of yourslef.">
+  <!-- Add some coding keywords below, Ex: (React, CSS etc) -->
+  <meta name="keywords" content="Muhiddinov Sherzamon ,Python backend developper" />
+  <link rel="stylesheet" type="text/css" href="{% static "css/index.css"  %}">
+
+
+</head>
+
+<body>
+
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie('csrftoken');
+</script>
+  <header class="header" role="banner" id="top">
+    <div class="row">
+      <nav class="nav" role="navigation">
+        <ul class="nav__items">
+
+          <li class="nav__item"><a href="#work" class="nav__link">Send dile</a></li>
+
+          <li class="nav__item">
+            <a href="#about" class="nav__link">File download</a>
+          </li>
+          <li class="nav__item">
+            <a href="#contact" class="nav__link">Contact</a>
+
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="header__text-box row">
+      <div class="header__text">
+        <h1 style="color: #807d7d" class="heading-primary">
+          <!-- Replace the following name with your name -->
+          <span>Security File Transfer</span>
+        </h1>
+        <!-- Put a small paragraph about yourself -->
+        <h3 style="color: #808080">2 chi mustaqil ish</h3>
+        <a href="#work" class="btn btn--pink">Send file</a>
+
+      </div>
+
+    </div>
+  </header>
+
+  <main role="main">
+
+    <!-- ***** Work ***** -->
+
+    <section  class="work" id="work">
+      <div class="row">
+      <h2 style="color: red">Send File</h2>
+          <form action="/upload/" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="document"><br>
+
+              <label for="keyword">Keyword :</label>
+   <input type="text" id="keyword" name="keyword"><br>
+    <label for="pwd">Password:</label>
+   <input type="password" id="pwd" name="pwd">
+              <br>
+
+
+    <button type="submit">Upload file</button>
+  </form>
+          {% if url %}
+    Uploaded file: <a style="color: red"  href="{{ url }}">{{ url }}</a>
+    <br>
+    <p>keyword: {{ keyword }}</p>
+    <p>password: {{ pwd }}</p>
+     <a href="{%  url "home" %}" class="nav__link">Homepage</a>
+
+
+
+  {% endif %}
+
+
+
+{#    <form  method="post" enctype="multipart/form-data" > {% csrf_token %}#}
+{##}
+{##}
+{##}
+{#  <label for="myfile">Select files:</label>#}
+{#  <input type="file" id="myfile" name="myfile" multiple><br><br>#}
+{#    <input type="file" name="document"><br>#}
+{##}
+
+{#    <br>#}
+{#  <input type="submit" value="Yuborish">#}
+{#</form>#}
+
+
+
+
+          </div>
+
+
+        </div>
+
+      </div>
+    </section>
+
+
+
+    <section class="about" id="about">
+      <div class="row">
+
+
+
+        <h2 style="color: red">Download file</h2>
+
+
+          <form action="/download1/" method="post" >
+    {% csrf_token %}
+
+
+          <label  for="keyword1">Keyword :</label>
+   <input  type="text" id="keyword1" name="keyword1"><br>
+    <label for="pwd1">Password:</label>
+   <input  type="password" id="pwd1" name="pwd1">
+
+          {% if url2 %}
+              <br>
+    Uploaded file: <a style="color: red"  href="{{ url2 }}" download="{{ url2 }}" class="btn">{{ url2 }}</a>
+              <br>
+          <a href="{%  url "home" %}" class="nav__link">Homepage</a>
+          {% else%}
+              {% if xat %}
+                  <input type="submit"  style="color: red"  value="Submit">
+                  <p>{{ xat }}</p>
+                  {% else %}
+                  <input type="submit" value="Submit">
+                  {% endif %}
+              {% endif %}
+    <br>
+
+
+
+          </form>
+
+        </div>
+
+    </section>
+  </main>
+
+  <!-- ***** Contact ***** -->
+
+  <section class="contact" id="contact">
+    <div class="row">
+      <h2>Get in Touch</h2>
+      <div class="contact__info">
+        <p>
+            Talaba: Muhiddinov Sherzamon <br>
+            O'qituvchi: Djurayev Oybek
+
+        </p>
+        <!-- Replace the email with yours -->
+        <a href="mailto:{{ about.mail}}" class="btn">mr.sherzamon@gmail.com</a>
+        <a href="{{ about.telegram}}" class="btn">Telegram</a>
+        <a href="tel:{{ about.phone }}" class="btn">Phone</a>
+
+
+
+
+
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ***** Footer ***** -->
+
+  <footer role="contentinfo" class="footer">
+    <div class="row">
+      <!-- Update the links to point to your accounts -->
+      <ul class="footer__social-links">
+
+        <li class="footer__social-link-item">
+          <a href="{{ about.github}}" title="Link to Github Profile">
+            <img src="{%  static   "img/github.svg" %}" class="footer__social-image" alt="Github">
+          </a>
+        </li>
+
+        <li class="footer__social-link-item">
+          <a href=https://www.linkedin.com/in/nisar-hassan-naqvi-413466199/">
+            <img src="{%  static   "img/linkedin.svg" %}" title="Link to Linkedin Profile" class="footer__social-image" alt="Linkedin">
+          </a>
+        </li>
+      </ul>
+
+      <!-- If you give me some credit by keeping the below paragraph, will be huge for me 😊 Thanks. -->
+
+
+    </div>
+  </footer>
+
+  <a href="#top" class="back-to-top" title="Back to Top">
+    <img src="{%  static   "img/arrow-up.svg" %}" alt="Back to Top" class="back-to-top__image"/>
+  </a>
+
+<script src="{%  static  "/js/index.js"  %}"></script>
+
+</body>
+
+</html>
